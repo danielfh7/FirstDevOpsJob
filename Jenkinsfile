@@ -12,7 +12,12 @@ pipeline {
                 
             }
         }
-
+     
+     stage ('Build') {
+         steps {
+             bat(script: 'mvn -f pom.xml clean install', returnStdout: true);
+         }
+        }
         
      stage ('Docker Build') {
            steps {
