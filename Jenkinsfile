@@ -20,14 +20,10 @@ pipeline {
         }
         
      stage ('Docker Build') {
-           steps {
-               script {
-         // Build and push image with Jenkins' docker-plugin
-            withDockerRegistry([credentialsId: "dockerhub", url: "https://index.docker.io/v1/"]) {
-            image = docker.build("danielfh7/simple-devops")
-            image.push()    
-            }
-               }
+           steps{
+             // docker login  
+             bat(script: 'docker build -t danielfh7/servicenet6v1 .' , returnStdout:true);
+             bat(script: 'docker push danielfh7/servicenet6v1' , returnStdout:true);  
            }
         }
         
